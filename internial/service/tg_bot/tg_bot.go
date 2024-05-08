@@ -82,13 +82,21 @@ func TgBot(ChanTeam chan models.TeamData) {
 
 		}
 
+		//При получении команды "Команды" бот отправляет список команд
+		if update.Message != nil && update.Message.Text == "Команды" {
+			msg, err := sheets.ParsinTeam()
+			if err != nil {
+				continue
+			}
+
+			msg1 := tgbotapi.NewMessage(update.Message.Chat.ID, msg)
+			msg1.ParseMode = tgbotapi.ModeMarkdown
+			bot.Send(msg1)
+		}
+
 		if update.Message == nil { // ignore any non-Message Updates
 			continue
 		}
-
-		msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
-
-		bot.Send(msg)
 
 	}
 
