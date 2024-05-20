@@ -25,12 +25,15 @@ func SendMessageTG(bot *tgbotapi.BotAPI, data models.TeamData) {
 	textMsg := fmt.Sprintf("❗Новая запись на игру❗\n\n*команда:* %v\n%v\n%v\n\n%v %v",
 		data.TeamName, data.Email, data.Phone, data.DataGame, data.NameGame)
 
+	fmt.Println(textMsg)
+
 	msg := tgbotapi.NewMessage(chatID, textMsg)
 	msg.ReplyMarkup = inlineKeyboard
-	msg.ParseMode = tgbotapi.ModeMarkdown
+	msg.ParseMode = tgbotapi.ModeHTML
 
 	_, err := bot.Send(msg)
 	if err != nil {
+		fmt.Println("ошибка отправки сообщения")
 		log.Panic(err)
 	}
 }

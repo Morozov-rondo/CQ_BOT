@@ -55,7 +55,7 @@ func TgBot(ChanTeam chan models.TeamData) {
 
 				msg := fmt.Sprintf("✅Команда *%v* записана на игру *%v*", teamdata.TeamName, teamdata.NameGame)
 				editMsg := tgbotapi.NewEditMessageText(update.CallbackQuery.Message.Chat.ID, update.CallbackQuery.Message.MessageID, msg)
-				editMsg.ParseMode = tgbotapi.ModeMarkdown
+				editMsg.ParseMode = tgbotapi.ModeHTML
 				bot.Send(editMsg)
 				delete(Teams, commandId)
 
@@ -75,7 +75,7 @@ func TgBot(ChanTeam chan models.TeamData) {
 
 				msg := fmt.Sprintf("⏸Команда *%v* в резерве на игру *%v*", teamdata.TeamName, teamdata.NameGame)
 				editMsg := tgbotapi.NewEditMessageText(update.CallbackQuery.Message.Chat.ID, update.CallbackQuery.Message.MessageID, msg)
-				editMsg.ParseMode = tgbotapi.ModeMarkdown
+				editMsg.ParseMode = tgbotapi.ModeHTML
 				bot.Send(editMsg)
 				delete(Teams, commandId)
 			}
@@ -84,13 +84,14 @@ func TgBot(ChanTeam chan models.TeamData) {
 
 		//При получении команды "Команды" бот отправляет список команд
 		if update.Message != nil && update.Message.Text == "Команды" {
+			fmt.Println("Команды")
 			msg, err := sheets.ParsinTeam()
 			if err != nil {
 				continue
 			}
 
 			msg1 := tgbotapi.NewMessage(update.Message.Chat.ID, msg)
-			msg1.ParseMode = tgbotapi.ModeMarkdown
+			msg1.ParseMode = tgbotapi.ModeHTML
 			bot.Send(msg1)
 		}
 

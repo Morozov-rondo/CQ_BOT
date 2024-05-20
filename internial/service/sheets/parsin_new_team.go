@@ -19,7 +19,7 @@ func ParsinNewTeam(chanTeam chan models.TeamData) {
 
 		for _, team := range teams {
 
-			if team[14] == "FALSE" {
+			if team[14] == "false" {
 
 				team_data := models.TeamData{
 					ID:       count_id,

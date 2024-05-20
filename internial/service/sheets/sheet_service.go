@@ -1,6 +1,8 @@
 package sheets
 
-import "CQ-bot/internial/GoogleSheetsAPI"
+import (
+	"CQ-bot/internial/GoogleSheetsAPI"
+)
 
 // ParsinSheets Функция получения данных из таблицы
 func ParsinSheets(credentialsFile, spreadsheetID, rangeName string) ([][]interface{}, error) {
@@ -11,6 +13,7 @@ func ParsinSheets(credentialsFile, spreadsheetID, rangeName string) ([][]interfa
 	}
 
 	data, err := client.ReadData(spreadsheetID, rangeName)
+
 	if err != nil {
 		return nil, err
 	}

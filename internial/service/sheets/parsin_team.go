@@ -20,14 +20,18 @@ func ParsinTeam() (string, error) {
 
 		date_game := fmt.Sprintf("%v", team[4])
 		date := strings.Split(date_game, ".")
-		date_game = fmt.Sprintf("%v-%v-%v-19:30:00+07", date[2], date[1], date[0])
+		date_game = fmt.Sprintf("20%v-%v-%v-19:30:00+07", date[2], date[1], date[0])
+
+		fmt.Println(date_game)
 
 		t, err := time.Parse("2006-01-02-15:04:05-07", date_game)
 		if err != nil {
+			fmt.Println("тут ошибка")
 			continue
 		}
 
 		gamestart := t.After(time.Now())
+		fmt.Println(gamestart)
 
 		if gamestart && team[14] == "TRUE" {
 			name_game := fmt.Sprintf("%v, %v", team[13], team[4])
